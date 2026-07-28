@@ -55,12 +55,6 @@ Payroll management system using MySQL for employee salary processing. :contentRe
 
 ---
 
-## 📸 Preview
-
-<img width="100%" src="profileimg.jpeg" alt="Portfolio Preview">
-
----
-
 ## 👩‍💻 About Me
 
 I'm **Ruchita Pethe**, a Computer Science Engineering graduate passionate about Frontend Development, Full-Stack Development, and Generative AI. I enjoy building responsive web applications, integrating AI APIs, and creating user-friendly digital experiences. :contentReference[oaicite:2]{index=2}

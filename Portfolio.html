@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruchita Pethe — Frontend & GenAI Developer</title>
+<meta name="description" content="Ruchita Pethe — Frontend & Full-Stack Developer building AI-powered applications. Portfolio, projects, and contact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1229;
+    --bg-panel: #171B3A;
+    --bg-panel-2: #1E2247;
+    --text: #F1EEE6;
+    --text-muted: #9296B0;
+    --text-dim: #6A6E8A;
+    --accent-gold: #E8A33D;
+    --accent-gold-dim: #a9762c;
+    --accent-teal: #5EEAD4;
+    --border: rgba(241,238,230,0.09);
+    --border-bright: rgba(241,238,230,0.18);
+    --radius: 10px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232,163,61,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(94,234,212,0.06), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background: var(--accent-gold); color: #0F1229; }
+
+  :focus-visible{
+    outline: 2px solid var(--accent-teal);
+    outline-offset: 3px;
+  }
+
+  .wrap{ max-width: 1040px; margin:0 auto; padding: 0 28px; position:relative; z-index:1; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top:0; z-index:50;
+    background: rgba(15,18,41,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .brand{ font-family: var(--mono); font-size:15px; color:var(--text); letter-spacing:0.02em; }
+  .brand span{ color: var(--accent-gold); }
+  .navlinks{ display:flex; gap:28px; font-size:14px; color:var(--text-muted); }
+  .navlinks a{ transition: color .2s ease; }
+  .navlinks a:hover{ color: var(--text); }
+  .nav-cta{
+    font-family: var(--mono); font-size:13px;
+    border:1px solid var(--border-bright); padding:7px 14px; border-radius:6px;
+    color: var(--text); transition: border-color .2s ease, background .2s ease;
+  }
+  .nav-cta:hover{ border-color: var(--accent-gold); background: rgba(232,163,61,0.08); }
+  .navlinks-mobile{ display:none; }
+
+  @media (max-width: 720px){
+    .navlinks{ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding: 96px 0 80px; position:relative; }
+  .avatar{
+  width:76px; height:76px; border-radius:50%; object-fit:cover;
+  border:2px solid var(--accent-gold);
+  box-shadow: 0 0 0 4px rgba(232,163,61,0.12);
+  margin-bottom:20px;
+}
+  .eyebrow{
+    font-family: var(--mono); font-size:13px; color: var(--accent-teal);
+    text-transform:uppercase; letter-spacing:0.12em; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:""; width:7px; height:7px; border-radius:50%; background: var(--accent-teal);
+    box-shadow: 0 0 8px var(--accent-teal);
+  }
+
+  .hero-grid{ display:grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items:start; }
+  @media (max-width: 860px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+  h1{
+    font-family: var(--display); font-weight:700;
+    font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+    line-height:1.08; letter-spacing:-0.01em;
+    margin-bottom: 20px;
+  }
+  h1 .accent{ color: var(--accent-gold); }
+
+  .hero-sub{ color: var(--text-muted); font-size:17px; max-width: 480px; margin-bottom:32px; }
+
+  .hero-links{ display:flex; flex-wrap:wrap; gap:14px; }
+  .btn{
+    font-family: var(--mono); font-size:13.5px; padding:11px 20px; border-radius:7px;
+    display:inline-flex; align-items:center; gap:8px; transition: all .2s ease;
+  }
+  .btn-primary{ background: var(--accent-gold); color:#171021; font-weight:600; }
+  .btn-primary:hover{ background:#f0b354; transform: translateY(-1px); }
+  .btn-ghost{ border:1px solid var(--border-bright); color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--accent-teal); color: var(--accent-teal); }
+
+  /* --- prompt console (signature element) --- */
+  .console{
+    background: var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius: var(--radius);
+    overflow:hidden;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .console-bar{
+    display:flex; align-items:center; gap:7px;
+    padding:11px 14px; border-bottom:1px solid var(--border);
+    background: var(--bg-panel-2);
+  }
+  .console-dot{ width:10px; height:10px; border-radius:50%; }
+  .console-bar span:nth-child(1){ background:#ED6A5E; }
+  .console-bar span:nth-child(2){ background:#F4BF4F; }
+  .console-bar span:nth-child(3){ background:#61C554; }
+  .console-title{
+    margin-left:8px; font-family: var(--mono); font-size:12px; color: var(--text-dim);
+  }
+  .console-body{ padding:22px 20px; font-family: var(--mono); font-size:13.5px; min-height:220px; }
+  .console-line{ color: var(--text-muted); margin-bottom:10px; }
+  .console-line .prompt-symbol{ color: var(--accent-teal); }
+  .console-output{ color: var(--text); white-space:pre-wrap; }
+  .cursor{
+    display:inline-block; width:7px; height:15px; background: var(--accent-gold);
+    vertical-align:text-bottom; animation: blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding: 64px 0; border-top:1px solid var(--border); position:relative; }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:36px; }
+  .section-tag{ font-family:var(--mono); font-size:12px; color: var(--text-dim); }
+  h2{
+    font-family: var(--display); font-size: clamp(1.5rem, 3vw, 1.9rem); font-weight:600;
+  }
+
+  /* ---------- ABOUT / SKILLS ---------- */
+  .about-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:40px; }
+  @media (max-width: 780px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-text p{ color: var(--text-muted); margin-bottom:16px; font-size:15.5px; }
+  .about-text strong{ color: var(--text); font-weight:600; }
+
+  .skill-group{ margin-bottom:20px; }
+  .skill-label{
+    font-family: var(--mono); font-size:11.5px; color: var(--accent-gold);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;
+  }
+  .pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{
+    font-family: var(--mono); font-size:12.5px; color: var(--text-muted);
+    border:1px solid var(--border); padding:5px 11px; border-radius:5px;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .pill:hover{ border-color: var(--accent-teal); color: var(--text); }
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-card{
+    background: var(--bg-panel);
+    border:1px solid var(--border); border-radius: var(--radius);
+    padding:26px 28px;
+  }
+  .exp-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .exp-role{ font-family:var(--display); font-size:18px; font-weight:600; }
+  .exp-org{ color: var(--accent-gold); font-size:14.5px; }
+  .exp-meta{ font-family: var(--mono); font-size:12.5px; color: var(--text-dim); text-align:right; }
+  .exp-list{ list-style:none; }
+  .exp-list li{ color: var(--text-muted); font-size:14.5px; padding-left:18px; position:relative; margin-bottom:9px; }
+  .exp-list li::before{ content:"→"; position:absolute; left:0; color: var(--accent-teal); }
+
+  /* ---------- PROJECTS ---------- */
+  .projects{ display:grid; grid-template-columns: repeat(2, 1fr); gap:20px; }
+  @media (max-width: 780px){ .projects{ grid-template-columns:1fr; } }
+
+  .project-card{
+    background: var(--bg-panel);
+    border:1px solid var(--border); border-radius: var(--radius);
+    padding:24px; display:flex; flex-direction:column;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .project-card:hover{ border-color: var(--border-bright); transform: translateY(-2px); }
+  .project-card.featured{ grid-column: 1 / -1; background: linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel)); }
+
+  .project-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; gap:10px; }
+  .project-title{ font-family: var(--display); font-size:17px; font-weight:600; }
+  .project-flag{
+    font-family: var(--mono); font-size:10.5px; color: var(--bg); background: var(--accent-teal);
+    padding:3px 8px; border-radius:4px; white-space:nowrap; font-weight:600;
+  }
+  .project-desc{ color: var(--text-muted); font-size:14px; margin-bottom:16px; flex-grow:1; }
+  .project-stack{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .tag{ font-family: var(--mono); font-size:11px; color: var(--text-dim); border:1px solid var(--border); padding:3px 8px; border-radius:4px; }
+  .project-links{ display:flex; gap:16px; font-family: var(--mono); font-size:12.5px; }
+  .project-links a{ color: var(--accent-gold); border-bottom:1px solid transparent; transition: border-color .2s ease; }
+  .project-links a:hover{ border-color: var(--accent-gold); }
+
+  /* ---------- CERTIFICATIONS ---------- */
+  .certs{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+  @media (max-width: 780px){ .certs{ grid-template-columns:1fr; } }
+  .cert-row{
+    display:flex; justify-content:space-between; gap:12px;
+    border:1px solid var(--border); border-radius:8px; padding:14px 18px;
+    background: var(--bg-panel);
+  }
+  .cert-name{ font-size:14px; color: var(--text); }
+  .cert-org{ font-size:12.5px; color: var(--text-dim); margin-top:3px; }
+  .cert-date{ font-family: var(--mono); font-size:11.5px; color: var(--text-dim); white-space:nowrap; }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ padding: 70px 0 50px; border-top:1px solid var(--border); }
+  .footer-inner{ text-align:center; }
+  footer h2{ margin-bottom:14px; }
+  footer p{ color: var(--text-muted); max-width:460px; margin: 0 auto 30px; font-size:15px; }
+  .contact-row{ display:flex; justify-content:center; flex-wrap:wrap; gap:14px; margin-bottom:44px; }
+  .footer-meta{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family: var(--mono); font-size:12px; color: var(--text-dim);
+    border-top:1px solid var(--border); padding-top:24px;
+  }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .cursor{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Ruchita<span>.</span>Pethe</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#certifications">certifications</a>
+    </div>
+    <a class="nav-cta" href="#contact">contact →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+        <img class="avatar" src="RUCHITA.jpg" alt="Ruchita Pethe">
+      <div class="eyebrow">open to fresher roles · bengaluru</div>
+      <h1>Frontend developer,<br> building the <span class="accent">AI</span> layer on top.</h1>
+      <p class="hero-sub">
+        Ruchita Pethe — Computer Science Engineering graduate who ships responsive React front ends and wires them
+        up to LLM APIs, prompt chains, and real backends. Looking for a frontend, full-stack,
+        or GenAI role where curiosity is part of the job.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn btn-ghost" href="https://github.com/ruchi20788" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/ruchita-pethe-6a8839272" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div class="console reveal">
+      <div class="console-bar">
+        <span class="console-dot"></span><span class="console-dot"></span><span class="console-dot"></span>
+        <span class="console-title">prompt-engineer.exe</span>
+      </div>
+      <div class="console-body">
+        <div class="console-line"><span class="prompt-symbol">&gt;</span> who is ruchita pethe?</div>
+        <div class="console-output" id="typedOutput"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">01 / about</span>
+      <h2>Stack &amp; background</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Computer Science Engineering graduate (2026) </strong> student at S. G. Balekundi
+          Institute of Technology, Belagavi (CGPA 8.32, graduating 2026). Most of my hands-on
+          experience comes from building real front-end and full-stack applications during two
+          internships at Vstand4U Solutions — first as a Full Stack Developer, then as an AI Intern.
+        </p>
+        <p>
+          Outside coursework, I go deep on <strong>prompt engineering and generative AI</strong> —
+          chain-of-thought prompting, RAG concepts, and evaluating LLM outputs for consistency.
+          I speak <strong>English, Hindi, and Kannada</strong>, and I was also a Google Student Ambassador.
+        </p>
+      </div>
+      <div>
+        <div class="skill-group">
+          <div class="skill-label">Frontend</div>
+          <div class="pills">
+            <span class="pill">React.js</span><span class="pill">JavaScript (ES6+)</span>
+            <span class="pill">HTML5</span><span class="pill">CSS3</span>
+            <span class="pill">Tailwind CSS</span><span class="pill">Responsive Design</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Backend &amp; Data</div>
+          <div class="pills">
+            <span class="pill">Node.js</span><span class="pill">RESTful APIs</span>
+            <span class="pill">MySQL</span><span class="pill">Java</span><span class="pill">Python</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">AI / GenAI</div>
+          <div class="pills">
+            <span class="pill">Gemini API</span><span class="pill">OpenAI API</span>
+            <span class="pill">Prompt Engineering</span><span class="pill">RAG concepts</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Tools</div>
+          <div class="pills">
+            <span class="pill">Git / GitHub</span><span class="pill">VS Code</span>
+            <span class="pill">Postman</span><span class="pill">MySQL Workbench</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">02 / experience</span>
+      <h2>Where I've worked</h2>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Full Stack Developer Intern → AI Intern</div>
+          <div class="exp-org">Vstand4U Solutions</div>
+        </div>
+        <div class="exp-meta">Feb 2026 – Jun 2026<br>Bengaluru</div>
+      </div>
+      <ul class="exp-list">
+        <li>Built 3+ front-end applications with React.js, JavaScript, HTML/CSS, and Java, improving UI consistency across modules.</li>
+        <li>Integrated front-end components with MySQL and REST APIs, cutting down manual data-entry work through automated workflows.</li>
+        <li>Debugged issues and tested REST endpoints, improving performance and reducing reported bugs.</li>
+        <li>Shifted into an AI Intern role — built LLM-based interview question generation and real-time answer evaluation using the Gemini API and prompt engineering.</li>
+        <li>Worked in Git/GitHub across a multi-developer environment, following structured development practices.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">03 / projects</span>
+      <h2>Things I've built</h2>
+    </div>
+    <div class="projects reveal">
+
+      <div class="project-card featured">
+        <div class="project-top">
+          <div class="project-title">AI Interview Assistant</div>
+          <span class="project-flag">Live demo</span>
+        </div>
+        <div class="project-desc">
+          An AI-driven interview prep platform using Gemini API prompt chaining to simulate role-specific
+          technical and HR interviews, with AI-based answer evaluation, confidence scoring, and
+          chain-of-thought prompting for sharper follow-up questions.
+        </div>
+        <div class="project-stack">
+          <span class="tag">React.js</span><span class="tag">TypeScript</span><span class="tag">Gemini API</span>
+          <span class="tag">Prompt Chaining</span>
+        </div>
+        <div class="project-links">
+          <a href="https://ai-interview-assistant-three-rho.vercel.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a href="https://github.com/ruchi20788/ai-interview-assistant" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">AI-Powered Visual Content Portfolio</div>
+        </div>
+        <div class="project-desc">
+          A portfolio showcasing AI-generated visual content, built to explore how prompt design
+          shapes image quality — 30+ prompt iterations across style, composition, and mood, with
+          findings documented along the way.
+        </div>
+        <div class="project-stack">
+          <span class="tag">Prompt Engineering</span><span class="tag">Generative AI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ruchi20788" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Task Management App</div>
+          <span class="project-flag">Live demo</span>
+        </div>
+        <div class="project-desc">
+          Full-stack task manager with secure JWT authentication — create, update, delete, and track
+          personal tasks through a status-based dashboard (To Do, In Progress, Done).
+        </div>
+        <div class="project-stack">
+          <span class="tag">React.js</span><span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">MySQL</span><span class="tag">JWT</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ruchi20788" target="_blank" rel="noopener">Live demo ↗</a>
+          <a href="https://github.com/ruchi20788" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Expense Tracker</div>
+          <span class="project-flag">Live demo</span>
+        </div>
+        <div class="project-desc">
+          React-based expense tracker with CRUD, category/date filtering, and localStorage persistence,
+          plus an analytics dashboard with pie and line charts for spending trends and top categories.
+        </div>
+        <div class="project-stack">
+          <span class="tag">React.js</span><span class="tag">Charts</span><span class="tag">localStorage</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ruchi20788" target="_blank" rel="noopener">Live demo ↗</a>
+          <a href="https://github.com/ruchi20788" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">HR Management System</div>
+        </div>
+        <div class="project-desc">
+          Responsive HR system with CRUD for employee records, search/filter/update operations, and a
+          JavaScript dashboard showing employee stats, department insights, and payroll calculations.
+        </div>
+        <div class="project-stack">
+          <span class="tag">JavaScript</span><span class="tag">Responsive UI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ruchi20788" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+  <div class="project-top">
+    <div class="project-title">E-commerce SQL Project</div>
+  </div>
+  <div class="project-desc">
+    Relational database design for an e-commerce platform — schema modeling for products,
+    orders, and customers, with queries for order tracking, inventory, and sales analysis.
+  </div>
+  <div class="project-stack">
+    <span class="tag">SQL</span><span class="tag">MySQL</span><span class="tag">Schema Design</span>
+  </div>
+  <div class="project-links">
+    <a href="https://github.com/ruchi20788/ecommerce-sql-project" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>
+
+<div class="project-card">
+  <div class="project-top">
+    <div class="project-title">SQL Payroll System</div>
+  </div>
+  <div class="project-desc">
+    Payroll management system built on SQL — employee records, salary computation, and
+    deduction logic modeled through structured queries and relational tables.
+  </div>
+  <div class="project-stack">
+    <span class="tag">SQL</span><span class="tag">MySQL</span><span class="tag">Payroll Logic</span>
+  </div>
+  <div class="project-links">
+    <a href="https://github.com/ruchi20788/sql-payroll-system" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">04 / certifications</span>
+      <h2>Recognition</h2>
+    </div>
+    <div class="certs reveal">
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">AI, Machine Learning &amp; Generative AI, Prompt Engineering</div>
+          <div class="cert-org">Vstand4U Technologies</div>
+        </div>
+        <div class="cert-date">Jun 2026</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Google Student Ambassador — Certificate of Appreciation</div>
+          <div class="cert-org">Google</div>
+        </div>
+        <div class="cert-date">Mar 2026</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Organizer, Google Tribe 1.0</div>
+          <div class="cert-org">Google Developer Student Club</div>
+        </div>
+        <div class="cert-date">Nov 2025</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Bring AI to Work Workshop</div>
+          <div class="cert-org">Google Workspace</div>
+        </div>
+        <div class="cert-date">Sep 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap footer-inner reveal">
+    <h2>Let's talk.</h2>
+    <p>Open to frontend, full-stack, and GenAI fresher roles in Bengaluru — happy to walk through any of these projects in more depth.</p>
+    <div class="contact-row">
+      <a class="btn btn-primary" href="mailto:ruchitapethe2620@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="tel:+919606034569">+91 96060 34569</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/ruchita-pethe-6a8839272" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="https://github.com/ruchi20788" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="footer-meta">
+      <span>Ruchita Pethe · Karnataka, India</span>
+      <span>Built with HTML, CSS &amp; JS</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // typing effect for hero console
+  const outputText = "Computer Science Engineering graduate (2026) turning React front ends into full products — wiring LLM APIs, prompt chains, and REST backends underneath. Currently looking for a frontend, full-stack, or GenAI fresher role in Bengaluru.";
+  const outputEl = document.getElementById('typedOutput');
+  let i = 0;
+  function typeChar(){
+    if (i <= outputText.length){
+      outputEl.innerHTML = outputText.slice(0, i) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(typeChar, 18);
+    } else {
+      outputEl.innerHTML = outputText + '<span class="cursor"></span>';
+    }
+  }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    outputEl.innerHTML = outputText;
+  } else {
+    typeChar();
+  }
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
